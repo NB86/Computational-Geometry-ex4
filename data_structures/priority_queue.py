@@ -1,8 +1,8 @@
-from event import Event, EventType
+from data_structures.event import Event, EventType
 
 class CG24PriorityQueue:    
     def __init__(self):
-        self.array  = list()
+        self.array = list()
         
     def insert(self, event: Event) -> None:
         self.array.append(event)
