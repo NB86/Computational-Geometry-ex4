@@ -1,4 +1,5 @@
-from data_structures.event import Event, EventType
+import copy 
+from data_structures.event import Event
 
 class CG24PriorityQueue:    
     def __init__(self):
@@ -8,26 +9,26 @@ class CG24PriorityQueue:
         self.array.append(event)
         
         # heapify up
-        i = int(len(self.arr)) - int(1)
+        i = int(len(self.array)) - int(1)
         parent = int((i - 1) / 2)
 
-        while i > 0 and self.arr[i] < self.arr[parent]:
-            self.arr[i], self.arr[parent] = self.arr[parent], self.arr[i]
+        while i > 0 and self.array[i] < self.array[parent]:
+            self.array[i], self.array[parent] = self.array[parent], self.array[i]
             i = parent
             parent = int((i - 1) / 2)
     
     def empty(self) -> bool:
-        return 0 == len(self.arr)
+        return 0 == len(self.array)
     
     def pop(self) -> Event: 
-        if 0 == len(self.arr):
-            return self.arr[0] # raise exception
+        if self.empty():
+            raise ValueError
         
-        res = self.arr[0].event
+        res = self.array[0]
         
-        if len(self.arr) > 1:
-            n = len(self.arr)
-            self.arr[0], self.arr[n - 1] = self.arr[n - 1], self.arr[0]
+        if len(self.array) > 1:
+            n = len(self.array)
+            self.array[0], self.array[n - 1] = self.array[n - 1], self.array[0]
             n = n - 1
             
             i  = 0
@@ -35,18 +36,30 @@ class CG24PriorityQueue:
                 best = i
                 j1 = int(2 * i + 1)
                 j2 = int(2 * i + 2)
-                if j1 < n and self.arr[j1] < self.arr[best]:
+                if j1 < n and self.array[j1] < self.array[best]:
                     best = j1
 
-                if j2 < n and self.arr[j2] < self.arr[best]:
+                if j2 < n and self.array[j2] < self.array[best]:
                     best = j2
 
                 if best == i:
                     break
 
-                self.arr[i], self.arr[best] = self.arr[best], self.arr[i]
+                self.array[i], self.array[best] = self.array[best], self.array[i]
                 i = best
 
-        self.arr.pop()
+        self.array.pop()
         return res
-        
+
+    def __str__(self):
+        temp = copy.deepcopy(self)
+        string = ""
+        while True:
+            try:
+                string += str(temp.pop())
+            except:
+                break
+        return string
+
+    def __repr__(self):
+        return self.__str__()

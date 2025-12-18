@@ -14,3 +14,9 @@ class Event:
     
     def __lt__(self, other):
         return self.point < other.point
+    
+    def __str__(self):
+        return str(self.point)
+
+    def __repr__(self):
+        return str(self.point)
