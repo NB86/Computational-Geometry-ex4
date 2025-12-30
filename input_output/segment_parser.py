@@ -22,11 +22,7 @@ def parse_input_file(input_file):
     
     return segments
 
-def create_result_file(output_file, segments):
-    original_stdout = sys.stdout
-    with open(output_file, 'w') as file:
-        sys.stdout = file
-        for test_segments in segments:
-            print(simple_solver.find_number_of_intersection_points(test_segments))
+def create_result_file(segments):
+    for test_segments in segments:
+        print(simple_solver.find_number_of_intersection_points(test_segments))
     
-    sys.stdout = original_stdout
